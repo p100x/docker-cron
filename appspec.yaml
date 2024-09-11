@@ -1,0 +1,75 @@
+alerts:
+- rule: DEPLOYMENT_FAILED
+- rule: DOMAIN_FAILED
+features:
+- buildpack-stack=ubuntu-22
+ingress:
+  rules:
+  - component:
+      name: xplatform-relaunch-frontend
+    match:
+      path:
+        prefix: /
+  - component:
+      name: xplatform-relaunch-backend
+      preserve_path_prefix: true
+    cors:
+      allow_headers:
+      - Content-Type
+      - Authorization
+      allow_methods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+      - OPTIONS
+      - CONNECT
+      - HEAD
+      - TRACE
+      - PATCH
+      allow_origins:
+      - exact: https://hammerhead-app-wq8vk.ondigitalocean.app
+      max_age: 24h
+    match:
+      path:
+        prefix: /xplatform-relaunch-backend
+name: hammerhead-app
+region: fra
+services:
+- build_command: npm run build
+  environment_slug: node-js
+  github:
+    branch: main
+    deploy_on_push: true
+    repo: p100x/100xplatform_relaunch
+  http_port: 3000
+  instance_count: 1
+  instance_size_slug: apps-s-1vcpu-1gb-fixed
+  name: xplatform-relaunch-frontend
+  run_command: npm start
+  source_dir: frontend
+- environment_slug: node-js
+  github:
+    branch: main
+    deploy_on_push: true
+    repo: p100x/100xplatform_relaunch
+  http_port: 5005
+  instance_count: 1
+  instance_size_slug: apps-s-1vcpu-1gb-fixed
+  name: xplatform-relaunch-backend
+  run_command: npm start
+  source_dir: backend
+workers:
+  - name: docker-cron
+    dockerfile_path: Dockerfile
+    github:
+      repo: p100x/docker-cron
+      branch: main
+      deploy_on_push: true
+    source_dir: /
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    build_envs:
+      - key: GITHUB_TOKEN
+        value: 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
+        scope: BUILD_TIME
