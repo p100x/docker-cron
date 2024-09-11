@@ -1,3 +1,3 @@
-* * * * * /opt/venv/bin/python /DataCollection/AI\ market\ overview.py >> /proc/1/fd/1 2>/proc/1/fd/2
+0 9,13,21 * * 1-5 /opt/venv/bin/python /DataCollection/AI\ market\ overview.py >> /proc/1/fd/1 2>/proc/1/fd/2
 
 # An empty line is required at the end of this file for a valid cron file.
