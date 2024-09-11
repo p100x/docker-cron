@@ -1,13 +1,17 @@
 FROM ubuntu
 
-# Install required packages
+# Installiere Python und pip
 RUN apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get -y --no-install-recommends install cron curl python3 ca-certificates \
+    && DEBIAN_FRONTEND=noninteractive apt-get -y --no-install-recommends install cron curl python3 python3-pip ca-certificates \
     && rm -rf /var/lib/apt/lists/* \
     && which cron \
     && rm -rf /etc/cron.*/*
 
-# Kopiere das lokale Python-Skript in den Container
+# Kopiere die requirements.txt und installiere die Abhängigkeiten
+COPY requirements.txt .
+RUN pip3 install -r requirements.txt
+
+# Kopiere das Python-Skript in den Container
 COPY DataCollection /DataCollection
 
 COPY crontab /hello-cron
