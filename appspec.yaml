@@ -69,7 +69,3 @@ workers:
     source_dir: /
     instance_count: 1
     instance_size_slug: basic-xxs
-    build_envs:
-      - key: GITHUB_TOKEN
-        value: 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
-        scope: BUILD_TIME
