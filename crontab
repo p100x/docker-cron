@@ -1,6 +1,6 @@
 0 9,13,21 * * 1-5 /opt/venv/bin/python /DataCollection/AI\ market\ overview.py >> /proc/1/fd/1 2>/proc/1/fd/2
-0 * * * 1-5 /opt/venv/bin/python /DataCollection/aaii_google_sheets_fetcher.py >> /proc/1/fd/1 2>/proc/1/fd/2
-0 * * * 1-5 /opt/venv/bin/python /DataCollection/unemployment_fetcher.py >> /proc/1/fd/1 2>/proc/1/fd/2
-0 * * * 1-5 /opt/venv/bin/python /DataCollection/vix_fetcher.py >> /proc/1/fd/1 2>/proc/1/fd/2
+* * * * 1-5 /opt/venv/bin/python /DataCollection/aaii_google_sheets_fetcher.py >> /proc/1/fd/1 2>/proc/1/fd/2
+* * * * 1-5 /opt/venv/bin/python /DataCollection/unemployment_fetcher.py >> /proc/1/fd/1 2>/proc/1/fd/2
+* * * * 1-5 /opt/venv/bin/python /DataCollection/vix_fetcher.py >> /proc/1/fd/1 2>/proc/1/fd/2
 
 # An empty line is required at the end of this file for a valid cron file.
