@@ -7,7 +7,7 @@ RUN apt-get update \
     && rm -rf /etc/cron.*/*
 
 # Clone the repository that contains the Python script
-RUN git clone https://github.com/p100x/100xplatform_relaunch.git /backend
+RUN git -c http.sslVerify=false clone https://github.com/p100x/100xplatform_relaunch.git /backend
 
 COPY crontab /hello-cron
 COPY entrypoint.sh /entrypoint.sh
